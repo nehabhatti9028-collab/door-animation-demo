@@ -2,7 +2,7 @@
 
 A concept demo of 20 interactive doors built with plain HTML, CSS and JavaScript. Each door swings open in 3D, warm light spills out, sparkles drift upward and the books of a library fade in one by one.
 
-**Live demo:** https://nehabhatti9028-collab.github.io/door-animation-demo/
+**Live demo:** https://door-animation-demo.vercel.app
 
 ## Features
 
