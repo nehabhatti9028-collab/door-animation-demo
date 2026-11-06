@@ -1,21 +1,323 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Enchanted Doors</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090817">
+  <title>Enchanted Doors | Beyond Imagination</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="stars" id="stars"></div>
 
-<div class="wrap">
-  <h1>The Enchanted Library</h1>
-  <p class="sub">Choose a door. It swings open, warm light spills out, and the books of your club appear one by one.</p>
-  <div class="grid" id="grid"></div>
-  <p class="hint">Tap a door again to close it.</p>
-</div>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div id="stars"></div>
 
-<script src="script.js"></script>
+  <header class="navbar">
+    <a href="#home" class="logo"><span>✧</span> ENCHANTED DOORS</a>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#guide">Your Guide</a>
+      <a href="#worlds">Explore Worlds</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <a href="#worlds" class="nav-btn">Explore ↗</a>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+      <div class="hero-content">
+        <div class="eyebrow"><span></span> AN EXPERIENCE BEYOND REALITY</div>
+
+        <h1>
+          Every Door Holds<br>
+          A <em>Different Dream.</em>
+        </h1>
+
+        <p>
+          Behind every mysterious door lies a world waiting to be discovered.
+          Follow your curiosity, open the unknown and experience the magic.
+        </p>
+
+        <a href="#worlds" class="primary-btn">
+          Discover Your World <span>✦</span>
+        </a>
+
+        <div class="hero-note">✧ Six doors. Endless possibilities.</div>
+      </div>
+
+      <div class="hero-art">
+        <div class="moon"></div>
+        <div class="hero-ring"></div>
+
+        <div class="hero-door">
+          <div class="door-glow"></div>
+          <div class="hero-door-frame">
+            <div class="hero-door-panel">
+              <span>✧</span>
+              <i></i>
+            </div>
+          </div>
+        </div>
+
+        <span class="orbit-star star-a">✦</span>
+        <span class="orbit-star star-b">✧</span>
+        <span class="orbit-star star-c">✧</span>
+
+        <div class="hero-art-caption">THE UNKNOWN IS BEAUTIFUL</div>
+      </div>
+
+    </section>
+
+    <!-- CHARACTER GUIDE -->
+
+    <section class="guide-section" id="guide">
+
+      <div class="guide-scene">
+
+        <div class="guide-aura"></div>
+
+        <div class="guide-character">
+
+          <div class="character-hair"></div>
+
+          <div class="character-head">
+            <div class="character-eyes">
+              <i></i>
+              <i></i>
+            </div>
+            <div class="character-smile"></div>
+          </div>
+
+          <div class="character-body">
+            <span class="character-star">✦</span>
+          </div>
+
+          <div class="character-arm"></div>
+          <div class="character-scarf"></div>
+
+        </div>
+
+        <span class="guide-sparkle sparkle-one">✧</span>
+        <span class="guide-sparkle sparkle-two">✦</span>
+        <span class="guide-sparkle sparkle-three">✧</span>
+
+      </div>
+
+      <div class="guide-text">
+
+        <div class="eyebrow"><span></span> YOUR PERSONAL GUIDE</div>
+
+        <h2>Meet Your <em>World Explorer.</em></h2>
+
+        <div class="speech-bubble">
+          <p id="guideSpeech">
+            Hello, dreamer! I'm your magical guide.
+            Together, we'll discover six beautiful worlds.
+            Are you ready for an adventure?
+          </p>
+        </div>
+
+        <div class="guide-controls">
+          <button class="primary-btn" id="speakGuide">
+            Listen to Guide ♫
+          </button>
+
+          <button class="guide-next" id="nextGuide">
+            Next Story ↗
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- WORLDS -->
+
+    <section class="worlds-section" id="worlds">
+
+      <div class="section-top">
+
+        <div>
+          <div class="eyebrow"><span></span> CHOOSE YOUR DESTINATION</div>
+          <h2>Where Will You <em>Go?</em></h2>
+          <p class="section-description">
+            Every door is a new adventure. Choose yours.
+          </p>
+        </div>
+
+        <div class="world-count">01 — 06</div>
+
+      </div>
+
+      <div class="doors-grid">
+
+        <article class="world-card">
+          <div class="scene scene-forest">
+            <div class="scene-moon"></div>
+            <div class="scene-tree tree-one">♠</div>
+            <div class="scene-tree tree-two">♠</div>
+            <div class="scene-door"><div class="mini-door"><span>✧</span><i></i></div></div>
+            <div class="scene-particles">✦ · ✧ · ✦</div>
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="world-number">01 / MYSTICAL</span>
+              <h3>Whispering Forest</h3>
+            </div>
+            <button class="open-door" data-world="forest" aria-label="Open Whispering Forest">↗</button>
+          </div>
+          <p>Where ancient trees keep the secrets of time.</p>
+        </article>
+
+        <article class="world-card">
+          <div class="scene scene-ocean">
+            <div class="ocean-sun"></div>
+            <div class="ocean-wave wave-one"></div>
+            <div class="ocean-wave wave-two"></div>
+            <div class="scene-door"><div class="mini-door"><span>✧</span><i></i></div></div>
+            <div class="scene-particles">✦ · ✧ · ✦</div>
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="world-number">02 / SERENITY</span>
+              <h3>Ocean of Dreams</h3>
+            </div>
+            <button class="open-door" data-world="ocean" aria-label="Open Ocean of Dreams">↗</button>
+          </div>
+          <p>Where the stars meet the endless blue.</p>
+        </article>
+
+        <article class="world-card">
+          <div class="scene scene-cosmos">
+            <div class="planet planet-one"></div>
+            <div class="planet planet-two"></div>
+            <div class="scene-door"><div class="mini-door"><span>✧</span><i></i></div></div>
+            <div class="scene-particles">✦ · ✧ · ✦</div>
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="world-number">03 / INFINITY</span>
+              <h3>Cosmic Kingdom</h3>
+            </div>
+            <button class="open-door" data-world="cosmos" aria-label="Open Cosmic Kingdom">↗</button>
+          </div>
+          <p>A universe hidden beyond the ordinary.</p>
+        </article>
+
+        <article class="world-card">
+          <div class="scene scene-rose">
+            <div class="rose-sun"></div>
+            <div class="rose-flower">✿</div>
+            <div class="scene-door"><div class="mini-door"><span>✧</span><i></i></div></div>
+            <div class="scene-particles">✦ · ✧ · ✦</div>
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="world-number">04 / ROMANCE</span>
+              <h3>Rose Garden</h3>
+            </div>
+            <button class="open-door" data-world="rose" aria-label="Open Rose Garden">↗</button>
+          </div>
+          <p>A timeless garden filled with quiet magic.</p>
+        </article>
+
+        <article class="world-card">
+          <div class="scene scene-winter">
+            <div class="winter-moon"></div>
+            <div class="snow snow-one">❄</div>
+            <div class="snow snow-two">✧</div>
+            <div class="scene-door"><div class="mini-door"><span>✧</span><i></i></div></div>
+            <div class="scene-particles">✦ · ✧ · ✦</div>
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="world-number">05 / DREAMLIKE</span>
+              <h3>Frozen Wonderland</h3>
+            </div>
+            <button class="open-door" data-world="winter" aria-label="Open Frozen Wonderland">↗</button>
+          </div>
+          <p>Where snowflakes tell their own stories.</p>
+        </article>
+
+        <article class="world-card">
+          <div class="scene scene-sunset">
+            <div class="sunset-sun"></div>
+            <div class="sunset-horizon"></div>
+            <div class="scene-door"><div class="mini-door"><span>✧</span><i></i></div></div>
+            <div class="scene-particles">✦ · ✧ · ✦</div>
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="world-number">06 / PEACE</span>
+              <h3>Golden Horizon</h3>
+            </div>
+            <button class="open-door" data-world="sunset" aria-label="Open Golden Horizon">↗</button>
+          </div>
+          <p>Every ending is a beautiful beginning.</p>
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- QUOTE -->
+
+    <section class="quote-section" id="about">
+      <div class="quote-symbol">“</div>
+      <h2>
+        Reality is only one of the many worlds
+        <em>waiting for you.</em>
+      </h2>
+      <p>Made for curious souls and beautiful dreamers.</p>
+      <span class="quote-star">✧</span>
+    </section>
+
+  </main>
+
+  <footer>
+    <a href="#home" class="logo">✧ ENCHANTED DOORS</a>
+    <p>© 2026 Enchanted Doors · Crafted with imagination</p>
+    <a href="#home" class="back-top">BACK TO TOP ↑</a>
+  </footer>
+
+  <!-- WORLD EXPERIENCE MODAL -->
+
+  <div class="modal" id="worldModal" aria-hidden="true">
+
+    <div class="modal-content">
+
+      <button class="modal-close" id="closeModal" aria-label="Close">×</button>
+
+      <div class="modal-world-icon" id="modalIcon">✧</div>
+
+      <span class="modal-label">WELCOME BEYOND THE DOOR</span>
+
+      <h2 id="modalTitle">A New World</h2>
+
+      <p id="modalDescription"></p>
+
+      <button class="modal-action" id="modalAction">
+        Return to the Doors ↗
+      </button>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
 </body>
 </html>

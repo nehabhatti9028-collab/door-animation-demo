@@ -1,97 +1,259 @@
-(function () {
-  var COLORS = ['#b3433f','#3f6fb0','#7da043','#7a58a0','#e08a3c','#3fa3b8','#c9a13a'];
 
-  /* background stars + fireflies */
-  var sky = document.getElementById('stars');
-  for (var s = 0; s < 70; s++) {
-    var st = document.createElement('div');
-    st.className = 'star';
-    st.style.left = Math.random() * 100 + '%';
-    st.style.top = Math.random() * 100 + '%';
-    st.style.animationDelay = (Math.random() * 4) + 's';
-    st.style.animationDuration = (3 + Math.random() * 4) + 's';
-    sky.appendChild(st);
+const worlds = {
+  forest: {
+    title: "Whispering Forest",
+    description: "Welcome to a world where ancient trees whisper forgotten stories, glowing fireflies light your path and every shadow holds a little mystery.",
+    icon: "🌲"
+  },
+
+  ocean: {
+    title: "Ocean of Dreams",
+    description: "Breathe in the magic of endless blue waters, glowing waves and a sky full of stars. Here, everything feels peaceful.",
+    icon: "🌊"
+  },
+
+  cosmos: {
+    title: "Cosmic Kingdom",
+    description: "Travel beyond the stars into a universe of glowing planets, endless galaxies and beautiful possibilities.",
+    icon: "🌌"
+  },
+
+  rose: {
+    title: "Rose Garden",
+    description: "A secret garden where flowers bloom beneath a dreamy sky and every corner feels like a beautiful memory.",
+    icon: "🌹"
+  },
+
+  winter: {
+    title: "Frozen Wonderland",
+    description: "Discover a peaceful kingdom covered in sparkling snow, silver moonlight and the softest winter magic.",
+    icon: "❄️"
+  },
+
+  sunset: {
+    title: "Golden Horizon",
+    description: "Walk towards a golden sunset where the sky glows with warm colours and every ending becomes a new beginning.",
+    icon: "🌅"
   }
-  for (var f = 0; f < 14; f++) {
-    var ff = document.createElement('div');
-    ff.className = 'firefly';
-    ff.style.left = Math.random() * 100 + '%';
-    ff.style.top = (30 + Math.random() * 65) + '%';
-    ff.style.animationDelay = (Math.random() * 12) + 's';
-    ff.style.animationDuration = (9 + Math.random() * 8) + 's';
-    sky.appendChild(ff);
+};
+
+// GUIDE STORIES
+
+const stories = [
+  "Hello, dreamer! I'm your magical guide. Together, we'll discover six beautiful worlds. Are you ready for an adventure?",
+
+  "Our first destination is the Whispering Forest. Ancient trees, glowing fireflies and secrets are waiting for us.",
+
+  "Next, let's dive into the Ocean of Dreams. A peaceful world where the stars dance above the waves.",
+
+  "Look up! The Cosmic Kingdom is waiting. Beyond the stars, an entire universe of possibilities is hidden.",
+
+  "Can you smell the roses? Welcome to the Rose Garden, where every flower tells a beautiful story.",
+
+  "Let's discover the Frozen Wonderland. A sparkling kingdom where winter feels like a dream.",
+
+  "Finally, the Golden Horizon. Remember, every ending is just another beautiful beginning."
+];
+
+let storyIndex = 0;
+
+const guideSpeech = document.getElementById("guideSpeech");
+const speakGuide = document.getElementById("speakGuide");
+const nextGuide = document.getElementById("nextGuide");
+
+function showStory() {
+  guideSpeech.textContent = stories[storyIndex];
+}
+
+function speakText(text) {
+  if (!("speechSynthesis" in window)) {
+    alert("Your browser does not support voice narration.");
+    return;
   }
 
-  /* the 20 doors */
-  var grid = document.getElementById('grid');
-  for (var n = 1; n <= 20; n++) {
-    grid.appendChild(makeDoor(n));
+  window.speechSynthesis.cancel();
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = "en-US";
+  speech.rate = 0.88;
+  speech.pitch = 1.15;
+  speech.volume = 1;
+
+  window.speechSynthesis.speak(speech);
+}
+
+speakGuide.addEventListener("click", () => {
+  speakText(guideSpeech.textContent);
+});
+
+nextGuide.addEventListener("click", () => {
+  storyIndex = (storyIndex + 1) % stories.length;
+  showStory();
+  speakText(stories[storyIndex]);
+});
+
+// MODAL ELEMENTS
+
+const modal = document.getElementById("worldModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalIcon = document.getElementById("modalIcon");
+
+const closeModal = document.getElementById("closeModal");
+const modalAction = document.getElementById("modalAction");
+
+let activeDoor = null;
+
+// OPEN A WORLD
+
+document.querySelectorAll(".open-door").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    if (modal.classList.contains("active")) return;
+
+    const worldKey = button.dataset.world;
+    const world = worlds[worldKey];
+
+    if (!world) return;
+
+    const card = button.closest(".world-card");
+    const door = card.querySelector(".scene-door");
+
+    activeDoor = door;
+
+    door.classList.add("opening");
+    card.classList.add("opened");
+
+    modalTitle.textContent = world.title;
+    modalDescription.textContent = world.description;
+    modalIcon.textContent = world.icon;
+
+    setTimeout(() => {
+
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+      speakText(
+        "Welcome to " + world.title + ". " + world.description
+      );
+
+    }, 850);
+
+  });
+
+});
+
+// CLOSE WORLD
+
+function closeWorld() {
+
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
+
+  document.body.style.overflow = "";
+
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
   }
 
-  function makeDoor(n) {
-    var item = document.createElement('div');
-    item.className = 'item';
+  if (activeDoor) {
 
-    var frame = document.createElement('div');
-    frame.className = 'frame';
-    frame.tabIndex = 0;
-    frame.setAttribute('role', 'button');
-    frame.setAttribute('aria-pressed', 'false');
-    frame.setAttribute('aria-label', 'Open door ' + n);
+    const card = activeDoor.closest(".world-card");
 
-    var scene = document.createElement('div');
-    scene.className = 'scene';
+    activeDoor.classList.remove("opening");
 
-    var room = document.createElement('div');
-    room.className = 'room';
-    for (var r = 0; r < 3; r++) {
-      var shelf = document.createElement('div');
-      shelf.className = 'shelf';
-      for (var b = 0; b < 6; b++) {
-        var book = document.createElement('div');
-        book.className = 'book';
-        book.style.setProperty('--i', b + r * 2);
-        book.style.background = COLORS[(b + r * 2 + n) % COLORS.length];
-        book.style.height = (20 + ((b * 7 + r * 5 + n * 3) % 18)) + 'px';
-        shelf.appendChild(book);
-      }
-      room.appendChild(shelf);
+    if (card) {
+      card.classList.remove("opened");
     }
 
-    var door = document.createElement('div');
-    door.className = 'door';
-    var knob = document.createElement('span');
-    knob.className = 'knob';
-    door.appendChild(knob);
-
-    scene.appendChild(room);
-    scene.appendChild(door);
-    frame.appendChild(scene);
-
-    for (var k = 0; k < 9; k++) {
-      var sp = document.createElement('span');
-      sp.className = 'spark';
-      sp.style.left = (14 + Math.random() * 72) + '%';
-      sp.style.setProperty('--d', (Math.random() * 3.5).toFixed(2) + 's');
-      sp.style.setProperty('--x', (Math.random() * 50 - 25).toFixed(0) + 'px');
-      frame.appendChild(sp);
-    }
-
-    function toggle() {
-      var open = frame.classList.toggle('open');
-      frame.setAttribute('aria-pressed', open ? 'true' : 'false');
-    }
-    frame.addEventListener('click', toggle);
-    frame.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
-
-    var cap = document.createElement('div');
-    cap.className = 'caption';
-    cap.textContent = 'Mail Club ' + n;
-
-    item.appendChild(frame);
-    item.appendChild(cap);
-    return item;
+    activeDoor = null;
   }
-})();
+}
+
+closeModal.addEventListener("click", closeWorld);
+modalAction.addEventListener("click", closeWorld);
+
+modal.addEventListener("click", event => {
+
+  if (event.target === modal) {
+    closeWorld();
+  }
+
+});
+
+document.addEventListener("keydown", event => {
+
+  if (event.key === "Escape") {
+    closeWorld();
+  }
+
+});
+
+// FLOATING MAGICAL STARS
+
+const starsContainer = document.getElementById("stars");
+
+for (let i = 0; i < 55; i++) {
+
+  const star = document.createElement("span");
+
+  star.className = "star";
+  star.textContent = Math.random() > 0.5 ? "✧" : "·";
+
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+
+  star.style.fontSize =
+    Math.random() * 12 + 5 + "px";
+
+  star.style.animationDelay =
+    Math.random() * 4 + "s";
+
+  star.style.animationDuration =
+    Math.random() * 3 + 2 + "s";
+
+  starsContainer.appendChild(star);
+}
+
+// SCROLL REVEAL
+
+const revealObserver = new IntersectionObserver(entries => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+
+      entry.target.classList.add("revealed");
+
+      revealObserver.unobserve(entry.target);
+    }
+
+  });
+
+}, {
+  threshold: 0.12
+});
+
+document.querySelectorAll(
+  ".world-card, .quote-section, .guide-section"
+).forEach(item => {
+
+  item.classList.add("reveal");
+
+  revealObserver.observe(item);
+
+});
+
+// STOP VOICE WHEN PAGE IS CLOSED
+
+window.addEventListener("pagehide", () => {
+
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
+
+});
